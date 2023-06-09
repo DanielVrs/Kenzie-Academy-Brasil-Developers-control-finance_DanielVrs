@@ -1,0 +1,31 @@
+.container-header{
+	background-color: var(--color-grey-5);
+	height: 132px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding: 28px 16px;
+	gap: 1rem;
+	
+}
+
+header > div{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	gap: 1rem;
+}
+
+
+.header__logo{
+	
+	font-size: var(--font-size-1);
+	font-weight: var(--font-weight-1);
+	
+}
+
+.header__logo> span{
+	color: var(--color-brand-1);
+}

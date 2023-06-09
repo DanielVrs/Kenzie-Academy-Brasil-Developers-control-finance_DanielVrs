@@ -1,1 +1,123 @@
 /* Desenvolva a estilização da sua página aqui */
+@import url(globalStyles.css);
+@import url(header.css);
+@import url(buttons.css);
+@import url(navigation.css);
+@import url(cards.css);
+@import url(modal.css);
+
+
+
+
+.container-main{
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	padding: 0 16px;
+}
+
+
+.container__null{
+	height: 84px;
+	width: 100%;
+	background-color: var(--color-grey-5);
+	border: 1.5px var(--color-grey-3);
+	border-style: dashed;
+	border-radius: var(--radius-1);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.container__null > h3{
+	font-size: var(--font-size-2);
+	font-weight: var(--font-weight-1);
+}
+
+.container__null > p{
+	color: var(--color-grey-2);
+	font-size: var(--font-size-3);
+}
+
+
+
+@media (min-width: 413px) {
+
+	body{
+		margin: 0 auto;
+	}
+
+	header > div{
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+	}
+
+	.container-header{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		width: 100wv;
+		justify-content: space-between;
+	}
+	
+	.container__nav-bar{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.header__logo{
+		width: 50%;
+	}
+
+	.header__button{
+		/* width: 30%px; */
+		max-width: 180px;
+	}
+
+
+	.container__dynamic{
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.modal-buttons__footer{
+		justify-content: end;
+		gap: 1rem;
+	}
+	.button__cancel, .button__insert{
+		width: 30%;
+	}
+
+	.modal__main{
+		max-height: 355px;
+	}
+
+	.modal__controller{
+		max-height: 350px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 30px;
+	}
+	.modal__sub-tittle{
+		padding: 0;
+	}
+
+	.container__dynamic{
+		flex-direction: row;
+		
+		gap: 25px;
+	}
+	
+}
+
+
+
+
+
