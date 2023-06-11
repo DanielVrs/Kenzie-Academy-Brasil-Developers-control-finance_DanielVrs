@@ -5,7 +5,23 @@
 	padding: 30px 20px 30px 20px;
 	max-width: 430px;
 	margin: 100px auto;
+	
+	animation-name: slideDown;
+	animation-duration: var( --animation-duration);
+	animation-timing-function: var(--animation-type);
+	animation-fill-mode: forwards;
 }
+
+
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
 
 .modal__controller{
 	height: 400px;
@@ -105,7 +121,7 @@ input:focus{
 	min-width: 67px;
 	text-align: center;
 	padding: 8px 0 0 0;
-
+	cursor: pointer;
 }
 
 .label-modal__radio:hover{

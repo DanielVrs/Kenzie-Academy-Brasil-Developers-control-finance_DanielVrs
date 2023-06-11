@@ -1,6 +1,6 @@
 /* Desenvolva sua lógica aqui */
 
-
+import { closeModal, handleModal } from "./modal.js";
 import {insertedValues,valuesCategory} from "./valuesData.js"
 
 let insertedValuesFiltered = [];
@@ -10,12 +10,14 @@ const sumAll = (array) =>{
 	const resultSum = document.querySelector(".result-sun > span")
 	
 	let options = {
+		
 		minimumFractionDigits: 2,
 		maximumFractionDigits: 4
+		
 	};
 	
 	const totalValue = array.reduce((acc, element) => {
-		return acc = acc + element
+		return acc = acc + element.value
 	}, 0)
 	
 	resultSum.innerText = totalValue.toLocaleString(undefined,options)
@@ -25,12 +27,47 @@ const sumAll = (array) =>{
 sumAll(insertedValuesFiltered)
 
 
+const cardInicial = (title, text) =>{
+	const modalController = document.querySelector(".modal__main")
+	const resultSum = document.querySelector(".result-sun > span")
+	const containerList = document.querySelector(".container-card")
+		
+	const boxNull = document.createElement("div")
+	const tittleNull = document.createElement("h3")
+	const textNull = document.createElement("p")
+	
+	boxNull.addEventListener("click", () =>{
+		modalController.showModal()
+		closeModal()
+	})
+	
+	tittleNull.classList.add("null__title")
+	textNull.classList.add("null__text")
+	
+	boxNull.append(tittleNull,textNull)
+	
+	tittleNull.innerText = title
+	textNull.innerText = text
+	
+	
+	if(parseInt(resultSum.innerText) === 0){
+		containerList.appendChild(boxNull)
+		boxNull.classList.remove("disable")
+		boxNull.classList.add("container__null")
+		
+		
+	}else{
+		boxNull.classList.remove("container__null")
+		boxNull.classList.add("disable")
+	}	
+}
 
-
+cardInicial("Nenhum valor cadastrado","Registrar novo valor")
 
 
 const insert = (array) =>{
 	const buttonSend = document.querySelector(".button__insert")
+	const modal = document.querySelector(".modal__main")
 	
 	buttonSend.addEventListener("click", (event) =>{
 		event.preventDefault();
@@ -51,11 +88,15 @@ const insert = (array) =>{
 			array.push(object)
 			
 			inputValue.value = ""
-
-			renderCards(array)
 			
+			renderCards(array)
+			sumAll(array)
+			
+			modal.close()
 		}
 	})
+	
+	
 }
 
 insert(insertedValues)
@@ -73,15 +114,11 @@ const renderCards =(array) =>{
 		
 		mainList.appendChild(card)
 		
-		
-		
 	});
-	sumAll(insertedValuesFiltered)
 	
-	filteredValues()
+	deleteCards(insertedValues)
+	
 }
-
-
 
 
 function createCard(element){
@@ -112,7 +149,7 @@ function createCard(element){
 }	
 
 
-const filteredValues = () =>{
+const filteredValues = (array) =>{
 	
 	const buttonsFilters = document.querySelectorAll(".nav-bar__button")
 	
@@ -122,39 +159,48 @@ const filteredValues = () =>{
 			
 			let option = event.target.value
 			
-			const filteredElements = insertedValues.filter((element) => {
+			const filteredElements = array.filter((element) => {
 				
 				
 				if(option === "all"){
 					
-					// console.log(option)
-					// console.log(element.categoryID)
-					return insertedValues
+					return array
 					
 				}else if(element.categoryID == Number(option)){
-					// console.log(option)
-					// console.log(element.categoryID)
 					
 					return element
-				}
+					
+				}	
 			})
 			
-			insertedValuesFiltered = []
+			let title = ""	
+			let text = ""
 			
-			filteredElements.forEach(element => {
+			if (option === "all" ){
 				
-				insertedValuesFiltered.push(element.value)
-				sumAll(insertedValuesFiltered)
+				title = "Nenhum valor cadastrado"
+				text = "Registrar novo valor"
 				
-			});
+			}else if( option == 0 ){
+				
+				title = "Sem nenhum valor na categoria Entrada"
+				text = "Registrar novo valor"
+				
+			}else{
+				
+				title = "Sem nenhum valor na categoria Saída"
+				text = "Registrar novo valor"
+				
+			}
 			
 			renderCards(filteredElements)
-			deleteCards(filteredElements)
-			
+			sumAll(filteredElements)
+			cardInicial(title,text)
 		})
 	});
 }
 
+filteredValues(insertedValues)
 
 
 const deleteCards = (array) => {
@@ -165,24 +211,22 @@ const deleteCards = (array) => {
 		
 		button.addEventListener("click", (event) => {
 			
+			cardInicial("Nenhum valor cadastrado","Registrar novo valor")
 			const buttonId = event.target.dataset.cardId
-			
 			
 			const index = array.findIndex(card =>{
 				return card.id === Number(buttonId)
 			})
-			array.splice(index,1)
-			console.log(array)
 			
-			renderCards(array)
+			array.splice(index,1)
+			
+			filteredValues(array)
 			sumAll(array)
 			
+			renderCards(array)
 		})
 	})
+	
 }
 
-
-
-
-
-
+handleModal()
