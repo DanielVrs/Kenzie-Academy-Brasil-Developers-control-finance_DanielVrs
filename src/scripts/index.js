@@ -24,7 +24,7 @@ const sumAll = (array) =>{
 	
 }
 
-sumAll(insertedValuesFiltered)
+sumAll(insertedValues)
 
 
 const cardInicial = (title, text) =>{
@@ -120,8 +120,7 @@ const renderCards =(array) =>{
 	
 }
 
-
-function createCard(element){
+export function createCard(element){
 	
 	const card = document.createElement("li")
 	const cardValue = document.createElement("p") 
@@ -228,5 +227,6 @@ const deleteCards = (array) => {
 	})
 	
 }
+renderCards(insertedValues)
 
 handleModal()
